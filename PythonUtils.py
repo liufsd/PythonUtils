@@ -48,13 +48,16 @@ with open("/Users/liupeng/Desktop/output_temp.txt", "w") as outp:
         patt = re.compile( r'\\tat')
         b = patt.sub('<br>',b)
         print b
+        outp.write('   ====================start==================   \r\n\n \r\n\n')
         outp.write(b + '\r\n\n \r\n\n     ==================new log ==================       \r\n\n \r\n\n  ') 
+        outp.write(' \r\n\n \r\n\n    ======================end================   \r\n\n \r\n\n')
+
     
 #last: out result file.
 f1 = file("/Users/liupeng/Desktop/output_temp.txt", "r+")
 f2 = file("/Users/liupeng/Desktop/output.txt", "w+")
 for s in f1.readlines():
-      f2.write(s.replace("<br>","\r\n\n")) 
+      f2.write(s.replace("<br>","\r\n\n").replace('\n',"")) 
       print s  
                           
 f1.close()
