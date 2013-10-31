@@ -33,8 +33,19 @@ f4.close()
 f5.close()
 
 print '\r\n\n==================replace success==================\r\n\n'
+
+#replace the same.
+# rfd=file("/Users/liupeng/Desktop/output.txt","r+")
+# wfd=file("/Users/liupeng/Desktop/crashnew.txt", "w+")
+# h={}
+# for i in rfd:
+#     if not h.has_key(i):
+#         h[i]=1
+#         wfd.write(i)
+        
 #remove temp file
 os.remove("/Users/liupeng/Desktop/output_temp.txt")
 os.remove("/Users/liupeng/Desktop/crash_temp.txt")
 
 print '\r\n\n===finish=== \n result file: /Users/liupeng/Desktop/output.txt===============\r\n\n'
+
