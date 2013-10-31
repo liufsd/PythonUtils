@@ -23,6 +23,19 @@ print '\r\n\n==================match success==================\r\n\n'
 l2 = {}.fromkeys(s).keys()
 print '\r\n\n==================replace the same ==================\r\n\n'
 
+
+  
+from collections import defaultdict    
+def leaders(xs, top=10):
+    counts = defaultdict(int)
+    for x in xs:
+        counts[x] += 1
+    return sorted(counts.items(), reverse=True, key=lambda tup: tup[1])[:top]
+    
+xs = list("jkl;fpfmklmcvuioqwerklmwqpmksdvjioh0-45mkofwk903rmiok0fmdfjsd")
+print leaders(xs)
+
+
 out_str = ",".join(l2)
 # Write them to a file, again using "with" so the file will be closed.
 with open("/Users/liupeng/Desktop/output_temp.txt", "w") as outp:
