@@ -2,7 +2,7 @@
 import re
 import os
 #first: replace br
-f1 = file("/Users/liupeng/Desktop/crashlog.txt", "r+")
+f1 = file("/Users/liupeng/Desktop/testlog.txt", "r+")
 f2 = file("/Users/liupeng/Desktop/crash_temp.txt", "w+")
 for s in f1.readlines():
       f2.write(s.replace("<br>","\r\n\n")) 
@@ -17,8 +17,13 @@ print content
 s = re.findall(r'^STACK_TRACE ([\s\S]*?)PRODUCT : ', content, re.M)
 
 print s
+print '\r\n\n==================match success==================\r\n\n'
 
-out_str = ",".join(s)
+#remove the smae log 
+l2 = {}.fromkeys(s).keys()
+print '\r\n\n==================replace the same ==================\r\n\n'
+
+out_str = ",".join(l2)
 # Write them to a file, again using "with" so the file will be closed.
 with open("/Users/liupeng/Desktop/output_temp.txt", "w") as outp:
     outp.write(out_str)
@@ -33,15 +38,6 @@ f4.close()
 f5.close()
 
 print '\r\n\n==================replace success==================\r\n\n'
-
-#replace the same.
-# rfd=file("/Users/liupeng/Desktop/output.txt","r+")
-# wfd=file("/Users/liupeng/Desktop/crashnew.txt", "w+")
-# h={}
-# for i in rfd:
-#     if not h.has_key(i):
-#         h[i]=1
-#         wfd.write(i)
         
 #remove temp file
 os.remove("/Users/liupeng/Desktop/output_temp.txt")
