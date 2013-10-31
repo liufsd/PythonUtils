@@ -6,6 +6,7 @@ f1 = file("/Users/liupeng/Desktop/testlog.txt", "r+")
 f2 = file("/Users/liupeng/Desktop/crash_temp.txt", "w+")
 for s in f1.readlines():
       f2.write(s.replace("<br>","\r\n\n")) 
+      print s  
                           
 f1.close()
 f2.close()
@@ -19,12 +20,8 @@ s = re.findall(r'^STACK_TRACE ([\s\S]*?)PRODUCT : ', content, re.M)
 print s
 print '\r\n\n==================match success==================\r\n\n'
 
-#remove the smae log 
-l2 = {}.fromkeys(s).keys()
-print '\r\n\n==================replace the same ==================\r\n\n'
 
-
-  
+#sort function  
 from collections import defaultdict    
 def leaders(xs, top=10):
     counts = defaultdict(int)
@@ -32,23 +29,36 @@ def leaders(xs, top=10):
         counts[x] += 1
     return sorted(counts.items(), reverse=True, key=lambda tup: tup[1])[:top]
     
-xs = list("jkl;fpfmklmcvuioqwerklmwqpmksdvjioh0-45mkofwk903rmiok0fmdfjsd")
-print leaders(xs)
+
+print leaders(s)
 
 
-out_str = ",".join(l2)
+print '\r\n\n==================replace the same ==================\r\n\n'
+
+# out_str = ",".join(str(leaders(s)))
 # Write them to a file, again using "with" so the file will be closed.
 with open("/Users/liupeng/Desktop/output_temp.txt", "w") as outp:
-    outp.write(out_str)
-
+    for x in leaders(s):
+        s = str(x)
+        patt = re.compile( r'\\r\\n\\n')
+        b = patt.sub('<br>',s)
+        patt = re.compile( r'\\r\\n\\n\\tat')
+        b = patt.sub('<br>',b)
+        print b
+        patt = re.compile( r'\\tat')
+        b = patt.sub('<br>',b)
+        print b
+        outp.write(b + '\r\n\n \r\n\n     ==================new log ==================       \r\n\n \r\n\n  ') 
+    
 #last: out result file.
-f4 = file("/Users/liupeng/Desktop/output_temp.txt", "r+")
-f5 = file("/Users/liupeng/Desktop/output.txt", "w+")
-for s in f4.readlines():
-      f5.write(s.replace(",: ","\r\n\n ==================crash log==========================\n\n")) 
+f1 = file("/Users/liupeng/Desktop/output_temp.txt", "r+")
+f2 = file("/Users/liupeng/Desktop/output.txt", "w+")
+for s in f1.readlines():
+      f2.write(s.replace("<br>","\r\n\n")) 
+      print s  
                           
-f4.close()
-f5.close()
+f1.close()
+f2.close()
 
 print '\r\n\n==================replace success==================\r\n\n'
         
